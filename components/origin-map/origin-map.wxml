@@ -1,0 +1,77 @@
+<!-- 插画产地地图 — CSS手绘风格贵州地图 -->
+<view class="map-container">
+  <!-- 地图底色 — 贵州省轮廓抽象表现 -->
+  <view class="map-canvas">
+
+    <!-- 装饰性山峦剪影 (CSS三角形构建层叠山景) -->
+    <view class="landscape-layer">
+      <view class="hill h1"></view>
+      <view class="hill h2"></view>
+      <view class="hill h3"></view>
+      <view class="hill h4"></view>
+      <view class="hill h5"></view>
+      <view class="hill h6"></view>
+    </view>
+
+    <!-- 河流 (CSS线条) -->
+    <view class="river-layer">
+      <view class="river r1"></view>
+      <view class="river r2"></view>
+      <view class="river r3"></view>
+    </view>
+
+    <!-- 地标城市点 -->
+    <view class="city-dot guiyang">
+      <view class="dot"></view>
+      <text class="dot-label">贵阳</text>
+    </view>
+    <view class="city-dot zunyi">
+      <view class="dot"></view>
+      <text class="dot-label">遵义</text>
+    </view>
+    <view class="city-dot anshun">
+      <view class="dot"></view>
+      <text class="dot-label">安顺</text>
+    </view>
+    <view class="city-dot qiandongnan">
+      <view class="dot"></view>
+      <text class="dot-label">黔东南</text>
+    </view>
+    <view class="city-dot bijie">
+      <view class="dot"></view>
+      <text class="dot-label">毕节</text>
+    </view>
+    <view class="city-dot qiannan">
+      <view class="dot"></view>
+      <text class="dot-label">黔南</text>
+    </view>
+
+    <!-- 产品产地标记 — 呼吸动画光点 -->
+    <view class="product-marker {{markerAnimating ? 'pulse' : ''}}"
+      style="left: {{coord.x}}%; top: {{coord.y}}%;"
+      bindtap="onTapMarker">
+      <!-- 外层波纹 -->
+      <view class="marker-ring ring1"></view>
+      <view class="marker-ring ring2"></view>
+      <!-- 内核 -->
+      <view class="marker-core"></view>
+      <!-- 产地标签 -->
+      <view class="marker-label">
+        <text class="marker-name">{{productName}}</text>
+        <text class="marker-origin">{{origin}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图例 -->
+  <view class="legend">
+    <view class="legend-item">
+      <view class="legend-dot active"></view>
+      <text>当前产地</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-dot"></view>
+      <text>主要城市</text>
+    </view>
+  </view>
+</view>

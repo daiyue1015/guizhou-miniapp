@@ -1,0 +1,320 @@
+/* 首页样式 — 简约大方黔风 */
+
+/* ======== 顶部横幅 ======== */
+.hero {
+  position: relative;
+  height: 440rpx;
+  background: linear-gradient(175deg, #1a3a0a 0%, #2D5016 30%, #3a5c2a 60%, #5a7a4a 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CSS 山脉层叠 */
+.hero-mountains {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200rpx;
+}
+
+.mountain {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.m1 {
+  left: -10%;
+  border-width: 0 300rpx 200rpx 300rpx;
+  border-color: transparent transparent rgba(255,255,255,0.08) transparent;
+  animation: drift1 8s ease-in-out infinite;
+}
+
+.m2 {
+  left: 20%;
+  border-width: 0 250rpx 160rpx 200rpx;
+  border-color: transparent transparent rgba(255,255,255,0.12) transparent;
+  animation: drift2 10s ease-in-out infinite;
+}
+
+.m3 {
+  left: 50%;
+  border-width: 0 280rpx 220rpx 240rpx;
+  border-color: transparent transparent rgba(255,255,255,0.06) transparent;
+  animation: drift3 12s ease-in-out infinite;
+}
+
+@keyframes drift1 {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20rpx); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-15rpx); }
+}
+@keyframes drift3 {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(25rpx); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.hero-title {
+  display: block;
+  font-size: 72rpx;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 20rpx;
+  text-shadow: 0 4rpx 16rpx rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 8rpx;
+}
+
+/* ======== 区块头部 ======== */
+.section {
+  padding: 0 32rpx;
+  margin-top: 40rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2C2420;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8rpx;
+  bottom: 8rpx;
+  width: 6rpx;
+  background: #C4923A;
+  border-radius: 3rpx;
+}
+
+.section-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ======== 精选卡片 ======== */
+.featured-card {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 24rpx rgba(0,0,0,0.06);
+}
+
+.featured-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 360rpx;
+  background: linear-gradient(135deg, #E8EFE2 0%, #D4D8C5 30%, #C8D1B0 60%, #E0DFC8 100%);
+}
+
+.featured-img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.img-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.placeholder-icon {
+  font-size: 80rpx;
+  opacity: 0.5;
+}
+
+.featured-tag {
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+  padding: 6rpx 20rpx;
+  background: rgba(45,80,22,0.85);
+  color: #fff;
+  font-size: 22rpx;
+  border-radius: 20rpx;
+}
+
+.featured-info {
+  padding: 28rpx 28rpx 32rpx;
+}
+
+.featured-name {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #2C2420;
+}
+
+.featured-desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: #888;
+}
+
+.featured-price {
+  margin-top: 16rpx;
+  display: flex;
+  align-items: baseline;
+}
+
+/* ======== 产品网格 ======== */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product-card {
+  width: calc(50% - 10rpx);
+  background: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 16rpx rgba(0,0,0,0.04);
+  transition: transform 0.2s;
+}
+
+.product-card:active {
+  transform: scale(0.97);
+}
+
+.card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 240rpx;
+  background: linear-gradient(135deg, #E8EFE2 0%, #DBE0CC 50%, #D0D8C0 100%);
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.card-category {
+  position: absolute;
+  top: 12rpx;
+  left: 12rpx;
+  padding: 4rpx 16rpx;
+  background: rgba(196,146,58,0.88);
+  color: #fff;
+  font-size: 20rpx;
+  border-radius: 12rpx;
+}
+
+.card-body {
+  padding: 20rpx 20rpx 24rpx;
+}
+
+.card-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2C2420;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-origin {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #aaa;
+}
+
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16rpx;
+}
+
+.card-price {
+  display: flex;
+  align-items: baseline;
+}
+
+/* ======== 通用价格样式 ======== */
+.price-symbol {
+  font-size: 24rpx;
+  color: #C4923A;
+  font-weight: 600;
+}
+
+.price-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #C4923A;
+  line-height: 1;
+}
+
+.price-unit {
+  font-size: 22rpx;
+  color: #aaa;
+  margin-left: 4rpx;
+}
+
+/* ======== 标签 ======== */
+.card-tags {
+  display: flex;
+  gap: 6rpx;
+}
+
+.tag {
+  padding: 2rpx 10rpx;
+  font-size: 18rpx;
+  color: #8B6914;
+  background: #FAF6ED;
+  border-radius: 6rpx;
+}
+
+/* ======== 底部 ======== */
+.footer {
+  padding: 48rpx 0 60rpx;
+  text-align: center;
+}
+
+.footer-text {
+  font-size: 24rpx;
+  color: #ccc;
+  letter-spacing: 4rpx;
+}

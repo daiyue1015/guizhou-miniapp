@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#2D5016",
+    "navigationBarTitleText": "黔礼 · 贵州特色",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F0E8",
+    "backgroundTextStyle": "dark"
+  },
+  "usingComponents": {
+    "origin-map": "/components/origin-map/origin-map"
+  },
+  "sitemapLocation": "sitemap.json"
+}

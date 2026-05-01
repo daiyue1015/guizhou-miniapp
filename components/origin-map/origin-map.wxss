@@ -1,0 +1,281 @@
+/* 插画产地地图 — CSS手绘风格 */
+
+.map-container {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 20rpx rgba(0,0,0,0.04);
+}
+
+/* ======== 地图画布 ======== */
+.map-canvas {
+  position: relative;
+  width: 100%;
+  height: 520rpx;
+  background: linear-gradient(
+    175deg,
+    #E8EFE2 0%,
+    #D4E3C5 20%,
+    #E0D8C0 40%,
+    #DCE4D0 60%,
+    #C8D8B8 80%,
+    #E2DBC8 100%
+  );
+  overflow: hidden;
+}
+
+/* ======== 装饰山峦层 (CSS三角形) ======== */
+.landscape-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 300rpx;
+  pointer-events: none;
+}
+
+.hill {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.h1 {
+  left: -5%;
+  border-width: 0 120rpx 180rpx 100rpx;
+  border-color: transparent transparent #b8c9a8 transparent;
+}
+.h2 {
+  left: 10%;
+  border-width: 0 140rpx 140rpx 80rpx;
+  border-color: transparent transparent #c2d4b0 transparent;
+}
+.h3 {
+  left: 30%;
+  border-width: 0 100rpx 200rpx 130rpx;
+  border-color: transparent transparent #a8bf98 transparent;
+}
+.h4 {
+  left: 50%;
+  border-width: 0 130rpx 160rpx 110rpx;
+  border-color: transparent transparent #bdd0ac transparent;
+}
+.h5 {
+  left: 68%;
+  border-width: 0 100rpx 190rpx 120rpx;
+  border-color: transparent transparent #b0c8a0 transparent;
+}
+.h6 {
+  left: 82%;
+  border-width: 0 150rpx 150rpx 100rpx;
+  border-color: transparent transparent #c5d6b8 transparent;
+}
+
+/* ======== 河流层 ======== */
+.river-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.river {
+  position: absolute;
+  border-radius: 50%;
+  border: 3rpx solid rgba(130,170,160,0.35);
+  background: transparent;
+}
+
+.r1 {
+  top: 15%;
+  left: 25%;
+  width: 300rpx;
+  height: 60rpx;
+  transform: rotate(-12deg);
+  border-color: transparent transparent rgba(130,170,160,0.3) transparent;
+  border-width: 0 0 3rpx 0;
+  border-radius: 50%;
+}
+
+.r2 {
+  top: 35%;
+  left: 45%;
+  width: 200rpx;
+  height: 80rpx;
+  transform: rotate(25deg);
+  border-color: transparent transparent rgba(130,170,160,0.25) transparent;
+  border-width: 0 0 2rpx 0;
+}
+
+.r3 {
+  bottom: 20%;
+  left: 10%;
+  width: 350rpx;
+  height: 50rpx;
+  transform: rotate(-8deg);
+  border-color: transparent transparent rgba(130,170,160,0.28) transparent;
+  border-width: 0 0 3rpx 0;
+}
+
+/* ======== 城市点 ======== */
+.city-dot {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  pointer-events: none;
+}
+
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #8B6914;
+  opacity: 0.6;
+}
+
+.dot-label {
+  font-size: 20rpx;
+  color: #6a6a6a;
+}
+
+/* 各城市位置（模拟贵州地理分布） */
+.guiyang    { left: 42%; top: 48%; }
+.zunyi      { left: 44%; top: 32%; }
+.anshun     { left: 36%; top: 52%; }
+.qiandongnan{ left: 58%; top: 50%; }
+.bijie      { left: 30%; top: 38%; }
+.qiannan    { left: 52%; top: 60%; }
+
+/* ======== 产品产地标记点 ======== */
+.product-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 波纹圈 */
+.marker-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 4rpx solid #C4923A;
+  opacity: 0;
+}
+
+.ring1 {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.ring2 {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+/* 内核 */
+.marker-core {
+  position: relative;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background: #C4923A;
+  box-shadow: 0 0 16rpx rgba(196,146,58,0.6);
+  z-index: 2;
+}
+
+/* 呼吸动画 */
+.product-marker.pulse .ring1 {
+  animation: breathe1 2s ease-out infinite;
+}
+.product-marker.pulse .ring2 {
+  animation: breathe2 2s ease-out infinite 0.3s;
+}
+.product-marker.pulse .marker-core {
+  animation: breatheCore 2s ease-in-out infinite;
+}
+
+@keyframes breathe1 {
+  0%   { opacity: 0; transform: scale(0.5); }
+  30%  { opacity: 0.7; }
+  100% { opacity: 0; transform: scale(3.5); }
+}
+
+@keyframes breathe2 {
+  0%   { opacity: 0; transform: scale(0.5); }
+  30%  { opacity: 0.5; }
+  100% { opacity: 0; transform: scale(3.0); }
+}
+
+@keyframes breatheCore {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 16rpx rgba(196,146,58,0.6); }
+  50%      { transform: scale(1.3); box-shadow: 0 0 28rpx rgba(196,146,58,0.9); }
+}
+
+/* 产地标签 */
+.marker-label {
+  position: absolute;
+  top: 44rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  text-align: center;
+  background: rgba(255,255,255,0.92);
+  border: 1rpx solid #E8DCC8;
+  border-radius: 12rpx;
+  padding: 8rpx 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.08);
+  z-index: 3;
+}
+
+.marker-name {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #2C2420;
+}
+
+.marker-origin {
+  display: block;
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 2rpx;
+}
+
+/* ======== 图例 ======== */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+  padding: 20rpx 0 28rpx;
+  border-top: 1rpx solid #F0EDE4;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+
+.legend-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #8B6914;
+  opacity: 0.5;
+}
+
+.legend-dot.active {
+  width: 18rpx;
+  height: 18rpx;
+  background: #C4923A;
+  opacity: 1;
+  box-shadow: 0 0 10rpx rgba(196,146,58,0.5);
+}

@@ -1,0 +1,97 @@
+<!-- 首页 - 贵州特色产品展示 -->
+<view class="page">
+
+  <!-- 顶部横幅 — 贵州山水意境 -->
+  <view class="hero">
+    <view class="hero-mountains">
+      <!-- CSS 绘制的山峦层叠 -->
+      <view class="mountain m1"></view>
+      <view class="mountain m2"></view>
+      <view class="mountain m3"></view>
+    </view>
+    <view class="hero-content">
+      <text class="hero-title">黔礼</text>
+      <text class="hero-subtitle">来自贵州的山水馈赠</text>
+    </view>
+  </view>
+
+  <!-- 精选推荐 -->
+  <view class="section" wx:if="{{featuredProduct}}">
+    <view class="section-header">
+      <text class="section-title">精选推荐</text>
+      <text class="section-desc">领略黔地风物之美</text>
+    </view>
+    <view class="featured-card"
+      data-id="{{featuredProduct.id}}"
+      bindtap="onTapProduct">
+      <view class="featured-img-wrap">
+        <image class="featured-img"
+          src="{{featuredProduct.image}}"
+          mode="aspectFill"
+          lazy-load="{{true}}"
+          binderror="onImgError"
+        />
+        <view class="img-placeholder">
+          <text class="placeholder-icon">{{featuredProduct.category === '酒类' ? '🍶' : featuredProduct.category === '茶叶' ? '🍵' : featuredProduct.category === '调味品' ? '🌶️' : featuredProduct.category === '食品' ? '🍬' : featuredProduct.category === '药材' ? '🌿' : '🎁'}}</text>
+        </view>
+        <view class="featured-tag">{{featuredProduct.category}}</view>
+      </view>
+      <view class="featured-info">
+        <text class="featured-name">{{featuredProduct.name}}</text>
+        <text class="featured-desc">{{featuredProduct.origin}}</text>
+        <view class="featured-price">
+          <text class="price-symbol">¥</text>
+          <text class="price-value">{{featuredProduct.price}}</text>
+          <text class="price-unit">/{{featuredProduct.unit}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 全部产品 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">全部产品</text>
+      <text class="section-desc">八款精选 · 黔地好物</text>
+    </view>
+
+    <view class="product-grid">
+      <view class="product-card"
+        wx:for="{{products}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onTapProduct">
+
+        <view class="card-img-wrap">
+          <image class="card-img"
+            src="{{item.image}}"
+            mode="aspectFill"
+            lazy-load="{{true}}"
+            binderror="onImgError"
+          />
+          <view class="card-category">{{item.category}}</view>
+        </view>
+
+        <view class="card-body">
+          <text class="card-name">{{item.name}}</text>
+          <text class="card-origin">{{item.origin}}</text>
+
+          <view class="card-bottom">
+            <view class="card-price">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.price}}</text>
+            </view>
+            <view class="card-tags">
+              <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="footer">
+    <text class="footer-text">—— 更多黔地好物，敬请期待 ——</text>
+  </view>
+</view>

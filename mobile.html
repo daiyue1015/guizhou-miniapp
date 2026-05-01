@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>黔礼 · 贵州特色产品</title>
+<style>
+/* ============ Reset & Base ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+  background:#F5F0E8;color:#2C2420;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============ 导航栏 ============ */
+.navbar{
+  position:sticky;top:0;z-index:100;
+  background:linear-gradient(135deg,#1a3a0a,#2D5016);color:#fff;
+  display:flex;align-items:center;height:48px;padding:0 16px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.15);
+}
+.navbar .back-btn{
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;margin-right:8px;border-radius:50%;
+  transition:background 0.2s;
+}
+.navbar .back-btn:active{background:rgba(255,255,255,0.15)}
+.navbar .title{flex:1;font-size:17px;font-weight:600;letter-spacing:1px;text-align:center}
+.navbar .spacer{width:36px}
+
+/* ============ 页面切换 ============ */
+.page{display:none}
+.page.active{display:block;animation:fadeIn 0.3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============ 首页 - 横幅 ============ */
+.hero{
+  position:relative;height:280px;
+  background:linear-gradient(175deg,#1a3a0a 0%,#2D5016 30%,#3a5c2a 60%,#5a7a4a 100%);
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.hero-mountains{position:absolute;bottom:0;left:0;right:0;height:140px}
+.mountain{position:absolute;bottom:0;width:0;height:0;border-style:solid}
+.m1{left:-10%;border-width:0 200px 140px 200px;border-color:transparent transparent rgba(255,255,255,0.08) transparent;animation:drift1 8s ease-in-out infinite}
+.m2{left:20%;border-width:0 170px 110px 140px;border-color:transparent transparent rgba(255,255,255,0.12) transparent;animation:drift2 10s ease-in-out infinite}
+.m3{left:50%;border-width:0 190px 150px 160px;border-color:transparent transparent rgba(255,255,255,0.06) transparent;animation:drift3 12s ease-in-out infinite}
+@keyframes drift1{0%,100%{transform:translateX(0)}50%{transform:translateX(15px)}}
+@keyframes drift2{0%,100%{transform:translateX(0)}50%{transform:translateX(-10px)}}
+@keyframes drift3{0%,100%{transform:translateX(0)}50%{transform:translateX(18px)}}
+.hero-content{position:relative;z-index:2;text-align:center}
+.hero-title{display:block;font-size:52px;font-weight:700;color:#fff;letter-spacing:16px;text-shadow:0 3px 12px rgba(0,0,0,0.3)}
+.hero-subtitle{display:block;margin-top:10px;font-size:17px;color:rgba(255,255,255,0.75);letter-spacing:6px}
+
+/* ============ 分组区块 ============ */
+.section{padding:0 16px;margin-top:24px}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px}
+.section-title{font-size:20px;font-weight:700;color:#2C2420;padding-left:14px;position:relative}
+.section-title::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:4px;background:#C4923A;border-radius:2px}
+.section-desc{font-size:13px;color:#999}
+
+/* ============ 精选卡片 ============ */
+.featured-card{
+  background:#fff;border-radius:16px;overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,0.06);cursor:pointer;transition:transform 0.2s;
+}
+.featured-card:active{transform:scale(0.98)}
+.featured-img-wrap{position:relative;width:100%;height:280px;overflow:hidden}
+.featured-img-wrap img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1}
+.featured-tag{
+  position:absolute;top:12px;left:12px;z-index:2;
+  padding:4px 14px;background:rgba(45,80,22,0.85);color:#fff;
+  font-size:12px;border-radius:14px;
+}
+.featured-info{padding:18px 18px 22px}
+.featured-name{font-size:26px;font-weight:700;color:#2C2420}
+.featured-desc{display:block;margin-top:4px;font-size:15px;color:#888}
+.featured-price{margin-top:10px;display:flex;align-items:baseline}
+
+/* ============ 产品网格 ============ */
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.product-card{
+  background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 1px 10px rgba(0,0,0,0.04);cursor:pointer;transition:transform 0.2s;
+}
+.product-card:active{transform:scale(0.96)}
+.card-img-wrap{position:relative;width:100%;height:200px;overflow:hidden}
+.card-img-wrap img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1}
+.card-category{
+  position:absolute;top:8px;left:8px;z-index:2;
+  padding:3px 12px;background:rgba(196,146,58,0.88);color:#fff;
+  font-size:11px;border-radius:10px;
+}
+.card-body{padding:14px 14px 18px}
+.card-name{font-size:17px;font-weight:600;color:#2C2420;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-origin{display:block;margin-top:4px;font-size:12px;color:#aaa}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:6px}
+.card-price{display:flex;align-items:baseline}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{padding:2px 8px;font-size:11px;color:#8B6914;background:#FAF6ED;border-radius:5px;white-space:nowrap}
+
+/* ============ 价格样式 ============ */
+.price-symbol{font-size:14px;color:#C4923A;font-weight:600}
+.price-value{font-size:24px;font-weight:700;color:#C4923A;line-height:1}
+.price-value.sm{font-size:20px}
+.price-unit{font-size:12px;color:#aaa;margin-left:2px}
+
+/* ============ 底部 ============ */
+.footer{padding:36px 0 50px;text-align:center}
+.footer-text{font-size:13px;color:#ccc;letter-spacing:3px}
+
+/* ============ 详情页 ============ */
+.detail-hero-img{position:relative;width:100%;height:360px;overflow:hidden}
+.detail-hero-img img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1}
+.img-hint{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  padding:12px 0;background:linear-gradient(transparent,rgba(0,0,0,0.35));
+  text-align:center;font-size:12px;color:rgba(255,255,255,0.75);
+}
+
+/* 信息卡片 */
+.info-card{
+  margin:-30px 16px 0;background:#fff;border-radius:16px;
+  padding:24px 20px;position:relative;z-index:3;
+  box-shadow:0 -3px 16px rgba(0,0,0,0.04);
+}
+.info-top{display:flex;justify-content:space-between;align-items:flex-start}
+.info-left{flex:1;display:flex;flex-direction:column}
+.info-category{
+  font-size:12px;color:#C4923A;background:#FAF6ED;
+  padding:3px 12px;border-radius:6px;align-self:flex-start;margin-bottom:10px;
+}
+.info-name{font-size:28px;font-weight:700;color:#2C2420;line-height:1.2}
+.info-origin{margin-top:6px;font-size:15px;color:#888}
+.info-right{display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0}
+.info-tags{display:flex;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid #F0EDE4;flex-wrap:wrap}
+.info-tag{
+  padding:4px 14px;font-size:12px;color:#8B6914;
+  background:#FAF6ED;border-radius:12px;border:1px solid #E8DCC8;
+}
+
+/* 详情分组 */
+.dsection{margin:28px 16px 0}
+.dsection-title{
+  font-size:19px;font-weight:700;color:#2C2420;
+  padding-left:14px;margin-bottom:14px;position:relative;
+}
+.dsection-title::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:4px;background:#C4923A;border-radius:2px}
+.desc-text{font-size:15px;color:#4a4a4a;line-height:1.8}
+.story-card{
+  position:relative;background:#fff;border-radius:14px;
+  padding:30px 22px;box-shadow:0 1px 12px rgba(0,0,0,0.04);
+}
+.story-quote{
+  position:absolute;top:10px;left:18px;
+  font-size:56px;color:#E8DCC8;font-family:Georgia,serif;line-height:1;
+}
+.story-text{font-size:15px;color:#5a5a5a;line-height:1.8;position:relative;z-index:1}
+.origin-note{display:block;margin-top:10px;font-size:12px;color:#bbb;text-align:center}
+
+/* ============ 相关推荐横滑 ============ */
+.related-scroll{display:flex;overflow-x:auto;gap:12px;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.related-scroll::-webkit-scrollbar{display:none}
+.related-item{
+  flex-shrink:0;width:160px;background:#fff;border-radius:14px;
+  overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.04);
+  cursor:pointer;transition:opacity 0.2s;
+}
+.related-item:active{opacity:0.8}
+.related-item img{width:160px;height:160px;object-fit:cover}
+.related-name{padding:10px 12px 2px;font-size:15px;font-weight:600;color:#2C2420;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.related-price{padding:0 12px 12px;display:flex;align-items:baseline}
+.bottom-space{height:50px}
+
+/* ============ 产地插画地图 ============ */
+.map-outer{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 14px rgba(0,0,0,0.04)}
+.map-canvas{
+  position:relative;width:100%;height:380px;
+  background:linear-gradient(175deg,#E8EFE2 0%,#D4E3C5 20%,#E0D8C0 40%,#DCE4D0 60%,#C8D8B8 80%,#E2DBC8 100%);
+  overflow:hidden;
+}
+.landscape-layer{position:absolute;bottom:0;left:0;right:0;height:220px;pointer-events:none}
+.hill{position:absolute;bottom:0;width:0;height:0;border-style:solid}
+.h1{left:-5%;border-width:0 90px 140px 75px;border-color:transparent transparent #b8c9a8 transparent}
+.h2{left:10%;border-width:0 100px 110px 60px;border-color:transparent transparent #c2d4b0 transparent}
+.h3{left:30%;border-width:0 75px 150px 95px;border-color:transparent transparent #a8bf98 transparent}
+.h4{left:50%;border-width:0 95px 125px 85px;border-color:transparent transparent #bdd0ac transparent}
+.h5{left:68%;border-width:0 75px 145px 90px;border-color:transparent transparent #b0c8a0 transparent}
+.h6{left:82%;border-width:0 110px 115px 75px;border-color:transparent transparent #c5d6b8 transparent}
+.river-layer{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none}
+.river{position:absolute;border-radius:50%}
+.r1{top:12%;left:22%;width:200px;height:40px;transform:rotate(-12deg);border-bottom:2px solid rgba(130,170,160,0.3)}
+.r2{top:30%;left:42%;width:140px;height:55px;transform:rotate(25deg);border-bottom:2px solid rgba(130,170,160,0.22)}
+.r3{bottom:18%;left:8%;width:240px;height:35px;transform:rotate(-8deg);border-bottom:2px solid rgba(130,170,160,0.25)}
+.city-dot{position:absolute;display:flex;align-items:center;gap:6px;pointer-events:none}
+.city-dot .dot{width:10px;height:10px;border-radius:50%;background:#8B6914;opacity:0.55}
+.city-dot .dot-label{font-size:11px;color:#6a6a6a}
+.dot-guiyang{left:42%;top:47%}
+.dot-zunyi{left:44%;top:30%}
+.dot-anshun{left:36%;top:51%}
+.dot-qiandongnan{left:58%;top:49%}
+.dot-bijie{left:29%;top:36%}
+.dot-qiannan{left:52%;top:59%}
+.product-marker{
+  position:absolute;transform:translate(-50%,-50%);
+  display:flex;align-items:center;justify-content:center;
+}
+.marker-ring{position:absolute;border-radius:50%;border:3px solid #C4923A;opacity:0}
+.ring1{width:30px;height:30px;animation:breathe1 2s ease-out infinite}
+.ring2{width:44px;height:44px;animation:breathe2 2s ease-out 0.3s infinite}
+.marker-core{
+  position:relative;width:16px;height:16px;border-radius:50%;
+  background:#C4923A;box-shadow:0 0 12px rgba(196,146,58,0.55);
+  z-index:2;animation:breatheCore 2s ease-in-out infinite;
+}
+@keyframes breathe1{0%{opacity:0;transform:scale(0.5)}30%{opacity:0.7}100%{opacity:0;transform:scale(4)}}
+@keyframes breathe2{0%{opacity:0;transform:scale(0.5)}30%{opacity:0.5}100%{opacity:0;transform:scale(3.5)}}
+@keyframes breatheCore{0%,100%{transform:scale(1);box-shadow:0 0 12px rgba(196,146,58,0.55)}50%{transform:scale(1.35);box-shadow:0 0 22px rgba(196,146,58,0.85)}}
+.marker-label{
+  position:absolute;top:34px;left:50%;transform:translateX(-50%);
+  white-space:nowrap;text-align:center;
+  background:rgba(255,255,255,0.93);border:1px solid #E8DCC8;
+  border-radius:10px;padding:6px 14px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.07);z-index:3;
+}
+.marker-label .mname{display:block;font-size:15px;font-weight:700;color:#2C2420}
+.marker-label .morigin{display:block;font-size:11px;color:#999;margin-top:1px}
+.legend{display:flex;justify-content:center;gap:32px;padding:14px 0 20px;border-top:1px solid #F0EDE4}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:#999}
+.legend-dot{width:12px;height:12px;border-radius:50%;background:#8B6914;opacity:0.5}
+.legend-dot.active{width:15px;height:15px;background:#C4923A;opacity:1;box-shadow:0 0 8px rgba(196,146,58,0.45)}
+</style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<div class="navbar" id="navbar">
+  <div class="back-btn" id="backBtn" style="visibility:hidden">←</div>
+  <div class="title"><span id="navTitle">黔礼·贵州特色</span></div>
+  <div class="spacer"></div>
+</div>
+
+<!-- ============ 首页 ============ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-mountains">
+      <div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div>
+    </div>
+    <div class="hero-content">
+      <span class="hero-title">黔礼</span>
+      <span class="hero-subtitle">来自贵州的山水馈赠</span>
+    </div>
+  </div>
+
+  <div class="section" id="featuredSection">
+    <div class="section-header">
+      <span class="section-title">精选推荐</span>
+      <span class="section-desc">领略黔地风物之美</span>
+    </div>
+    <div class="featured-card" id="featuredCard">
+      <div class="featured-img-wrap">
+        <img id="featuredImg" src="" alt="" />
+        <div class="featured-tag" id="featuredCategory"></div>
+      </div>
+      <div class="featured-info">
+        <span class="featured-name" id="featuredName"></span>
+        <span class="featured-desc" id="featuredOrigin"></span>
+        <div class="featured-price">
+          <span class="price-symbol">¥</span><span class="price-value" id="featuredPrice"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">全部产品</span>
+      <span class="section-desc">八款精选 · 黔地好物</span>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+
+  <div class="footer"><span class="footer-text">—— 更多黔地好物，敬请期待 ——</span></div>
+</div>
+
+<!-- ============ 详情页 ============ -->
+<div class="page" id="page-detail">
+  <div class="detail-hero-img">
+    <img id="detailImg" src="" alt="" />
+    <div class="img-hint">点击查看大图</div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-top">
+      <div class="info-left">
+        <span class="info-category" id="detailCategory"></span>
+        <span class="info-name" id="detailName"></span>
+        <span class="info-origin" id="detailOrigin"></span>
+      </div>
+      <div class="info-right">
+        <span class="price-symbol">¥</span>
+        <span class="price-value" id="detailPrice"></span>
+        <span class="price-unit" style="font-size:12px;color:#aaa" id="detailUnit"></span>
+      </div>
+    </div>
+    <div class="info-tags" id="detailTags"></div>
+  </div>
+
+  <div class="dsection">
+    <div class="dsection-title">产地溯源</div>
+    <div class="map-outer">
+      <div class="map-canvas">
+        <div class="landscape-layer">
+          <div class="hill h1"></div><div class="hill h2"></div><div class="hill h3"></div>
+          <div class="hill h4"></div><div class="hill h5"></div><div class="hill h6"></div>
+        </div>
+        <div class="river-layer">
+          <div class="river r1"></div><div class="river r2"></div><div class="river r3"></div>
+        </div>
+        <div class="city-dot dot-guiyang"><div class="dot"></div><span class="dot-label">贵阳</span></div>
+        <div class="city-dot dot-zunyi"><div class="dot"></div><span class="dot-label">遵义</span></div>
+        <div class="city-dot dot-anshun"><div class="dot"></div><span class="dot-label">安顺</span></div>
+        <div class="city-dot dot-qiandongnan"><div class="dot"></div><span class="dot-label">黔东南</span></div>
+        <div class="city-dot dot-bijie"><div class="dot"></div><span class="dot-label">毕节</span></div>
+        <div class="city-dot dot-qiannan"><div class="dot"></div><span class="dot-label">黔南</span></div>
+        <div class="product-marker" id="originMarker">
+          <div class="marker-ring ring1"></div>
+          <div class="marker-ring ring2"></div>
+          <div class="marker-core"></div>
+          <div class="marker-label">
+            <span class="mname" id="markerPname"></span>
+            <span class="morigin" id="markerOrigin"></span>
+          </div>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot active"></div><span>当前产地</span></div>
+        <div class="legend-item"><div class="legend-dot"></div><span>主要城市</span></div>
+      </div>
+    </div>
+    <span class="origin-note">* 插画示意产品产地位置</span>
+  </div>
+
+  <div class="dsection">
+    <div class="dsection-title">产品介绍</div>
+    <p class="desc-text" id="detailDesc"></p>
+  </div>
+
+  <div class="dsection">
+    <div class="dsection-title">产地故事</div>
+    <div class="story-card">
+      <div class="story-quote">"</div>
+      <p class="story-text" id="detailStory"></p>
+    </div>
+  </div>
+
+  <div class="dsection" id="relatedSection">
+    <div class="dsection-title">相关推荐</div>
+    <div class="related-scroll" id="relatedScroll"></div>
+  </div>
+
+  <div class="bottom-space"></div>
+</div>
+
+<!-- 隐藏的 canvas 用于生成产品图 -->
+<canvas id="imgGen" width="800" height="800" style="display:none"></canvas>
+
+<script>
+// ============ 产品数据 ============
+var products = [
+  {
+    id:1, name:'贵州茅台酒', category:'酒类',
+    price:1499, unit:'瓶/500ml', origin:'遵义市茅台镇',
+    originCoord:{x:48,y:42},
+    color1:'#8B1A1A', color2:'#C41E3A', icon:'🍶',
+    description:'贵州茅台酒，中国国家地理标志产品，产于贵州省遵义市茅台镇。以本地优质糯高粱、小麦、水为原料，利用得天独厚的自然环境，采用科学独特的传统工艺精心酿制而成。酒体微黄透明，酱香突出，幽雅细腻，回味悠长。被誉为"国酒"，是世界三大蒸馏名酒之一。',
+    story:'茅台镇地处赤水河谷，三面环山，一水中流，形成了特殊的小气候——冬暖夏热，少雨少风。这种独特的地理环境，孕育了无法复制的微生物群落，成就了茅台酒"离开茅台镇就酿不出茅台酒"的传奇。',
+    tags:['酱香型','国酒','非遗工艺']
+  },
+  {
+    id:2, name:'都匀毛尖茶', category:'茶叶',
+    price:268, unit:'盒/250g', origin:'黔南州都匀市',
+    originCoord:{x:55,y:56},
+    color1:'#2D5016', color2:'#4A7C28', icon:'🍵',
+    description:'都匀毛尖，中国十大名茶之一，产于贵州省黔南布依族苗族自治州都匀市。外形条索紧细卷曲，白毫满布，色泽绿润；内质香气清高持久，汤色清澈明亮，滋味醇厚鲜爽回甘。明代即为贡茶，1956年由毛泽东主席亲自命名。',
+    story:'都匀毛尖生长在海拔1000米以上的云雾山中，"高山云雾出好茶"正是其真实写照。每年清明前，茶农手工采摘一芽一叶，经杀青、揉捻、烘干等多道工序精制而成，每一片茶叶都凝聚着大自然的精华。',
+    tags:['绿茶','中国十大名茶','明前春茶']
+  },
+  {
+    id:3, name:'老干妈辣椒酱', category:'调味品',
+    price:38, unit:'瓶/280g', origin:'贵阳市南明区',
+    originCoord:{x:46,y:50},
+    color1:'#CC3300', color2:'#E8450A', icon:'🌶️',
+    description:'老干妈风味豆豉辣椒酱，贵州名产，出口全球80多个国家和地区。选用贵州优质辣椒为主料，搭配豆豉、菜籽油等辅料，经传统工艺精心制作。辣而不燥，香而醇厚，是无数中外食客餐桌上的必备佳品。',
+    story:'1996年，陶华碧女士在贵阳创办"老干妈"品牌。从一间路边小店起家，凭借独特的配方和过硬的品质，逐渐成长为全球知名的调味品品牌。"老干妈"三个字早已超越品牌本身，成为贵州味道走向世界的一张名片。',
+    tags:['辣椒酱','国民品牌','出口全球']
+  },
+  {
+    id:4, name:'苗族银饰', category:'工艺品',
+    price:680, unit:'件/手镯', origin:'黔东南州雷山县',
+    originCoord:{x:62,y:55},
+    color1:'#4A4A5A', color2:'#7B7B8B', icon:'✨',
+    description:'苗族银饰是贵州省黔东南苗族侗族自治州最具代表性的传统手工艺品之一。以白银为主要原料，经熔炼、锻打、拉丝、编结、錾刻等多道工序纯手工制作。造型精美，纹样丰富，蕴含着苗族人民对美好生活的向往和图腾崇拜。',
+    story:'在苗族文化中，银饰不仅是装饰品，更是身份的象征和财富的传承。苗家女儿从出生起，父母就开始为她积攒银饰作为嫁妆。每一件银饰上的纹样都承载着苗族迁徙、农耕、祭祀的历史记忆。',
+    tags:['非遗','纯手工','民族文化']
+  },
+  {
+    id:5, name:'镇宁波波糖', category:'食品',
+    price:45, unit:'盒/500g', origin:'安顺市镇宁县',
+    originCoord:{x:38,y:54},
+    color1:'#D4943A', color2:'#F0C070', icon:'🍬',
+    description:'镇宁波波糖是贵州省安顺市镇宁布依族苗族自治县的传统名点，始于清代。以糯米、芝麻、花生、核桃为主要原料，经浸泡、蒸煮、发酵、熬糖、拉糖等多道工序精制而成。口感酥脆，甜而不腻，入口即化，满口留香。',
+    story:'波波糖的名字源于布依族语言"波波"（意为"圆圆"），做好的糖团在芝麻粉中不断翻滚，越滚越大，形如雪球。每逢春节、婚嫁等喜庆日子，镇宁人家家户户都要制作波波糖招待宾客。',
+    tags:['传统糕点','布依族美食','百年工艺']
+  },
+  {
+    id:6, name:'安顺蜡染', category:'工艺品',
+    price:320, unit:'幅/60x60cm', origin:'安顺市西秀区',
+    originCoord:{x:40,y:52},
+    color1:'#1a4a6e', color2:'#2B6DA8', icon:'🎨',
+    description:'安顺蜡染是贵州省安顺市最具代表性的传统印染工艺，被誉为"东方第一染"。以蜂蜡为防染剂，在白布上绘制图案，再经蓝靛浸染、去蜡等多道工序制作。纹样以自然花鸟、几何图案和民族图腾为主，蓝白相间，素雅古朴。',
+    story:'安顺蜡染已有两千多年历史。当地布依族、苗族妇女从小就学习蜡染技艺，用蜡刀蘸熔蜡在白布上画出心中的图案。蓝靛来自山间种植的板蓝根，经过发酵后呈现出独特的靛蓝色泽——这是贵州大山赋予的最纯粹色彩。',
+    tags:['非遗','纯手工','东方第一染']
+  },
+  {
+    id:7, name:'凯里红酸汤', category:'调味品',
+    price:35, unit:'瓶/500ml', origin:'黔东南州凯里市',
+    originCoord:{x:60,y:52},
+    color1:'#B83230', color2:'#D44A3A', icon:'🍲',
+    description:'凯里红酸汤是贵州省黔东南苗族侗族自治州的特色调味品，也是"凯里酸汤鱼"的灵魂所在。以当地野生小西红柿（毛辣角）和辣椒为主要原料，经自然乳酸发酵而成。色泽鲜红，酸香浓郁，是苗侗人家一日三餐离不开的家乡味道。',
+    story:'"三天不吃酸，走路打蹿蹿"——这句流传在黔东南的俗语，道出了当地人对酸汤的深厚情感。苗侗先民因山地缺盐，便以酸代盐，创造了独特的酸汤文化。一锅酸汤，承载着苗岭山乡千年的饮食智慧。',
+    tags:['发酵食品','苗侗风味','地理标志']
+  },
+  {
+    id:8, name:'毕节天麻', category:'药材',
+    price:198, unit:'盒/250g', origin:'毕节市大方县',
+    originCoord:{x:35,y:40},
+    color1:'#5D4E37', color2:'#8B7355', icon:'🌿',
+    description:'毕节大方天麻，贵州省毕节市大方县特产，中国国家地理标志产品。质地坚实饱满，断面半透明，品质优良。天麻素含量远高于普通天麻，具有平肝息风、祛风通络等功效，是珍贵的药食两用资源。',
+    story:'大方县地处乌蒙山区，海拔高、云雾多、昼夜温差大，为天麻生长提供了绝佳的自然条件。当地"仿野生"种植天麻已有数百年历史，天麻与蜜环菌共生，在海拔1500米以上的山林中静静生长，吸收山川灵气。',
+    tags:['地理标志','药食同源','乌蒙山珍']
+  }
+];
+
+// ============ Canvas 图片生成器 ============
+// 为每款产品生成精美的卡片图，返回 dataURL
+function generateProductImage(p) {
+  var c = document.getElementById('imgGen');
+  var ctx = c.getContext('2d');
+  var w = 800, h = 800;
+  c.width = w; c.height = h;
+  ctx.clearRect(0, 0, w, h);
+
+  // --- 背景渐变 ---
+  var bg = ctx.createLinearGradient(0, 0, w, h);
+  bg.addColorStop(0, p.color1);
+  bg.addColorStop(0.5, p.color2);
+  bg.addColorStop(1, p.color1);
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
+
+  // --- 装饰圆 ---
+  ctx.globalAlpha = 0.12;
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.arc(w*0.8, h*0.15, 260, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(w*0.15, h*0.85, 200, 0, Math.PI*2); ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // --- 装饰线条 ---
+  ctx.strokeStyle = 'rgba(255,255,255,0.10)';
+  ctx.lineWidth = 2;
+  for (var i=0; i<8; i++) {
+    ctx.beginPath();
+    ctx.moveTo(0, h*0.12*i);
+    ctx.lineTo(w, h*0.12*i + 80);
+    ctx.stroke();
+  }
+
+  // --- 中央白色圆底 ---
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.beginPath(); ctx.arc(w/2, h*0.38, 180, 0, Math.PI*2); ctx.fill();
+
+  // --- 图标 ---
+  ctx.fillStyle = '#fff';
+  ctx.font = '160px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(p.icon, w/2, h*0.38);
+
+  // --- 产品名称 ---
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 56px "PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif';
+  ctx.fillText(p.name, w/2, h*0.65);
+
+  // --- 分类标签 ---
+  var tagW = 160, tagH = 48;
+  var tagX = w/2 - tagW/2, tagY = h*0.73;
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  var rx=tagX-30, ry=tagY-10, rw=tagW+60, rh=tagH+20, rr=24;
+  ctx.beginPath();
+  ctx.moveTo(rx+rr, ry);
+  ctx.lineTo(rx+rw-rr, ry);
+  ctx.arcTo(rx+rw, ry, rx+rw, ry+rr, rr);
+  ctx.lineTo(rx+rw, ry+rh-rr);
+  ctx.arcTo(rx+rw, ry+rh, rx+rw-rr, ry+rh, rr);
+  ctx.lineTo(rx+rr, ry+rh);
+  ctx.arcTo(rx, ry+rh, rx, ry+rh-rr, rr);
+  ctx.lineTo(rx, ry+rr);
+  ctx.arcTo(rx, ry, rx+rr, ry, rr);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = '28px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillText(p.category, w/2, tagY + tagH/2);
+
+  // --- 产地 ---
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.font = '26px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillText('📍 '+p.origin, w/2, h*0.85);
+
+  // --- 底部价格条 ---
+  ctx.fillStyle = 'rgba(0,0,0,0.15)';
+  ctx.fillRect(0, h-90, w, 90);
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 48px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillText('¥ '+p.price, w/2, h-50);
+
+  return c.toDataURL('image/png');
+}
+
+// ============ 预生成所有产品图片 ============
+var productImages = {};
+products.forEach(function(p) {
+  productImages[p.id] = generateProductImage(p);
+});
+
+// ============ 渲染首页 ============
+function renderHome() {
+  var featured = products.find(function(p){ return p.name==='安顺蜡染' }) || products[0];
+
+  document.getElementById('featuredName').textContent = featured.name;
+  document.getElementById('featuredOrigin').textContent = featured.origin;
+  document.getElementById('featuredPrice').textContent = featured.price;
+  document.getElementById('featuredCategory').textContent = featured.category;
+  document.getElementById('featuredImg').src = productImages[featured.id];
+  document.getElementById('featuredCard').onclick = function(){ showDetail(featured.id); };
+
+  var grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  products.forEach(function(p){
+    var card = document.createElement('div');
+    card.className = 'product-card';
+    card.onclick = function(){ showDetail(p.id); };
+    card.innerHTML =
+      '<div class="card-img-wrap">' +
+        '<img src="' + productImages[p.id] + '" alt="' + p.name + '" />' +
+        '<div class="card-category">' + p.category + '</div>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="card-name">' + p.name + '</div>' +
+        '<div class="card-origin">' + p.origin + '</div>' +
+        '<div class="card-bottom">' +
+          '<div class="card-price"><span class="price-symbol">¥</span><span class="price-value sm">' + p.price + '</span></div>' +
+          '<div class="card-tags">' + p.tags.map(function(t){ return '<span class="tag">'+t+'</span>' }).join('') + '</div>' +
+        '</div>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+// ============ 显示详情 ============
+function showDetail(id) {
+  var p = products.find(function(x){ return x.id === id; });
+  if (!p) return;
+
+  document.getElementById('detailImg').src = productImages[p.id];
+  document.getElementById('detailCategory').textContent = p.category;
+  document.getElementById('detailName').textContent = p.name;
+  document.getElementById('detailOrigin').textContent = '📍 ' + p.origin;
+  document.getElementById('detailPrice').textContent = p.price;
+  document.getElementById('detailUnit').textContent = '/' + p.unit;
+  document.getElementById('detailDesc').textContent = p.description;
+  document.getElementById('detailStory').textContent = p.story;
+
+  var tagsEl = document.getElementById('detailTags');
+  tagsEl.innerHTML = p.tags.map(function(t){ return '<span class="info-tag">'+t+'</span>' }).join('');
+
+  var marker = document.getElementById('originMarker');
+  marker.style.left = p.originCoord.x + '%';
+  marker.style.top = p.originCoord.y + '%';
+  document.getElementById('markerPname').textContent = p.name;
+  document.getElementById('markerOrigin').textContent = p.origin;
+
+  var related = products.filter(function(x){ return x.id !== p.id; }).sort(function(){ return Math.random()-0.5 }).slice(0,4);
+  var relScroll = document.getElementById('relatedScroll');
+  relScroll.innerHTML = '';
+  related.forEach(function(r){
+    var item = document.createElement('div');
+    item.className = 'related-item';
+    item.onclick = function(){ showDetail(r.id); };
+    item.innerHTML =
+      '<img src="' + productImages[r.id] + '" alt="' + r.name + '" />' +
+      '<div class="related-name">' + r.name + '</div>' +
+      '<div class="related-price"><span class="price-symbol">¥</span><span class="price-value sm">' + r.price + '</span></div>';
+    relScroll.appendChild(item);
+  });
+
+  document.getElementById('page-home').classList.remove('active');
+  document.getElementById('page-detail').classList.add('active');
+  document.getElementById('navTitle').textContent = p.name;
+  document.getElementById('backBtn').style.visibility = 'visible';
+  window.scrollTo(0, 0);
+}
+
+// ============ 返回首页 ============
+function goHome() {
+  document.getElementById('page-detail').classList.remove('active');
+  document.getElementById('page-home').classList.add('active');
+  document.getElementById('navTitle').textContent = '黔礼·贵州特色';
+  document.getElementById('backBtn').style.visibility = 'hidden';
+  window.scrollTo(0, 0);
+}
+
+document.getElementById('backBtn').addEventListener('click', goHome);
+
+// ============ 详情图点击放大 ============
+document.getElementById('detailImg').addEventListener('click', function(){
+  var src = this.src;
+  if (!src) return;
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:999;display:flex;align-items:center;justify-content:center;';
+  var img = document.createElement('img');
+  img.src = src;
+  img.style.cssText = 'max-width:95%;max-height:95%;object-fit:contain;border-radius:8px;';
+  overlay.appendChild(img);
+  overlay.addEventListener('click', function(){ overlay.remove(); });
+  document.body.appendChild(overlay);
+});
+
+// ============ 启动 ============
+renderHome();
+</script>
+</body>
+</html>

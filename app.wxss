@@ -1,0 +1,24 @@
+/* 全局样式 - 简约大方黔风配色 */
+
+/* 色板
+   主色 #2D5016  深绿 — 贵州山水
+   辅色 #8B6914  暖金 — 苗侗文化
+   点缀 #C4923A  琥珀 — 醇厚质感
+   背景 #F5F0E8  米白 — 素雅自然
+   文字 #2C2420  墨褐 — 沉稳内敛
+   浅绿 #E8EFE2  淡绿底 — 卡片底色
+   浅金 #FAF6ED  暖白 — 分隔用
+*/
+
+page {
+  background-color: #F5F0E8;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  color: #2C2420;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+.container {
+  padding: 0 32rpx;
+}
