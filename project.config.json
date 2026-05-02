@@ -1,5 +1,5 @@
 {
-  "appid": "touristappid",
+  "appid": "wxd14e839117e370e0",
   "projectname": "贵州特色产品",
   "description": "贵州特色产品展示小程序",
   "setting": {
@@ -36,7 +36,12 @@
   "condition": {},
   "simulatorPluginLibVersion": {},
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      { "value": ".git", "type": "folder" },
+      { "value": "mobile.html", "type": "file" },
+      { "value": "server.js", "type": "file" },
+      { "value": "images/README.md", "type": "file" }
+    ],
     "include": []
   },
   "editorSetting": {},
